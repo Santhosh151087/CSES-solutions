@@ -15,7 +15,8 @@ ll find(ll Node , ll nl , ll nr , ll ind){
 	return 0;
 	if(nl == nr)
 	return seg[Node];
-	ll mid = (nl+nr)/2;
+	
+	ll mid = nl+ (nr - nl)/2;
 	ll left = find(Node*2 , nl , mid ,ind);
 	ll right = find(Node*2+1 , mid+1 , nr , ind);
 	return seg[Node] + left + right;
@@ -23,11 +24,11 @@ ll find(ll Node , ll nl , ll nr , ll ind){
 void update(ll Node , ll nl , ll nr , ll ql , ll qr , ll inc){
 	if(ql > nr ||nl>qr)
 	return ;
-	if(ql>=nl && qr<=nr){
+	if(nl >=ql && nr <=qr){
 		seg[Node]+= inc;
 		return;
 	}
-	int mid = (nl+nr)/2;
+	ll mid = (nl+nr)/2;
 	update(Node*2 , nl , mid , ql , qr , inc);
 	update(Node*2+1 , mid+1 , nr , ql , qr , inc);
 }
@@ -59,7 +60,7 @@ int main(){
 		else{
 			int start , stop , inc;
 			cin>>start>>stop>>inc;
-			update(1 , 1 , N , stop , stop , inc);
+			update(1 , 1 , N , start , stop , inc);
 		}
 	}
 	
